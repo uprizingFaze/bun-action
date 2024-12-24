@@ -1,0 +1,24 @@
+name: my-workflow
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and deploy Node.js - bun
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "latest"
+
+      - name: Install dependencies, build, and lint
+        run: |
+          bun run lint
+          bun install
+          bun run build
